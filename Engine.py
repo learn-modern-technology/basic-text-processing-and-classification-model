@@ -79,8 +79,7 @@ def main(input_args):
     except Exception as e:
         print('Error in Engine.main()', e)
     else:
-        if model:
-            print('Model Training Completed!!')
+        print('Model Training Completed!!')
 
 
 if __name__ == "__main__":
@@ -88,7 +87,7 @@ if __name__ == "__main__":
     parser.add_argument("--file_name", type=str, default="Canva_reviews.xlsx",
                         help="Input file name")
     parser.add_argument("--vectorizer", type=str, default="binary_bag_of_words",
-                        help="'nonbinary_bag_of_words', 'binary_bag_of_words', 'ngram', 'term_frequency_inverse_document_frequency'")
+                        help="'nonbinary_bag_of_words', 'binary_bag_of_words', 'ngram', 'tfidf'")
     parser.add_argument("--output_name", type=str, default="binary_count_vector",
                         help="Output file name")
     args_main = parser.parse_args()

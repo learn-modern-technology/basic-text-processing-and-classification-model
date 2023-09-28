@@ -40,17 +40,16 @@ custome_stopwords = ["hey!", "it!", "you!", "i'm", "i", "i've", "me", "my", "mys
 stop_words.extend(custome_stopwords)
 
 
-def process_text(review_text, stem='w'):
+def process_text(review_df, stem='w'):
     """
     Given a text, the function converts the text into lower case,
     removes stopwords, removes punctuations, performs stemming and
     returns the processed text
-    :param review_text: raw review in text
+    :param review_df: raw review in text
     :param stem: Stemmer - 'p' for PorterStemmer and 'l' for
                         LancasterStemmer
     :return: processed text
     """
-    review_df = pd.DataFrame(review_text, columns=['review'])
     # Remove stopwords
     review_df['CleanedReview'] = review_df['review'].apply(lambda x: ' '.join(x for x in x.split() if x not in stop_words))
     # Remove punctuation
@@ -70,7 +69,7 @@ def process_text(review_text, stem='w'):
         raise Exception("stem has to be either 'p' for Porter or 'l' for Lancaster or 'w' for WordNetLemmatizer ")
 
     # Return clean string
-    return review_df['CleanedReview']
+    return review_df
 
 
 # Function to remove punctuation in the text

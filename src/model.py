@@ -33,17 +33,17 @@ def custom_vectorizer(i_token_list, y, vector_output_name, i_vector='binary_bag_
             p_vectorizer = CountVectorizer(binary=True, min_df=i_min_df)
         elif i_vector == 'ngram':
             p_vectorizer = CountVectorizer(min_df=i_min_df, ngram_range=(i_ng_low, i_ng_high))
-        elif i_vector == 'term_frequency_inverse_document_frequency':
+        elif i_vector == 'tfidf':
             p_vectorizer = TfidfVectorizer(min_df=i_min_df)
         else:
             raise Exception("Vector has to be one of 'nonbinary_bag_of_words', 'binary_bag_of_words', 'ngram', "
                             "'term_frequency_inverse_document_frequency'")
 
         # Fit the vectorizer
-        p_vectorizer.fit(i_token_list)
+        p_vectorizer.fit(i_token_list,y)
 
         # Fit the vectorizer and tranform the data and assign to X
-        X = p_vectorizer.fit_transform(i_token_list)
+        X = p_vectorizer.fit_transform(i_token_list,y)
 
         # Save the vectorizer
         save_file(vectorized_file, p_vectorizer)

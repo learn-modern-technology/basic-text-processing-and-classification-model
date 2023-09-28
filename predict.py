@@ -20,19 +20,18 @@ def main(input_args):
         # Predictor Input
         text_reviews_df = pd.DataFrame([input_args.text], columns=['review'])
         # Tokenize the input text
-        test_clean_review = pd.DataFrame(columns=['CleanedReview'])
-        test_clean_review['CleanedReview'] = [process_text(text_reviews_df, 'w')]
+        text_reviews_df = process_text(text_reviews_df, 'w')
         # Create vectorizer path
         vector_file = os.path.join(config.output_path, f"{input_args.model_name}.pkl")
         # Load the vectorizer
         p_vectorizer = load_file(vector_file)
         # Vectorize the tokens
-        X_test = p_vectorizer.transform(test_clean_review)
+        X_test = p_vectorizer.transform(text_reviews_df['CleanedReview'])
         # Make predictions
-        predicted_probability = loaded_model.predict_proba(X_test)[0, 1]*100
+        predicted_probability = loaded_model.predict_proba(X_test)
         prediction = loaded_model.predict(X_test)
-        print(prediction)
-        print(f"Probability of Positive Class: {predicted_probability}")
+        # print(prediction)
+        # print(f"Probability of Positive Class: {predicted_probability}")
         if prediction == 1:
             print('Positive Sentiment predicted')
         elif prediction == 0:
