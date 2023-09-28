@@ -14,6 +14,7 @@ The dataset is a custom dataset where reviews about an app are taken from app st
 To train the model run:
 ```buildoutcfg
 python Engine.py --file_name Canva_reviews.xlsx --vectorizer binary_bag_of_words --output_name binary_count_vector
+
 ```
 Here we can use 4 types of vectorizers:
 * Bag of Words - `nonbinary_bag_of_words`
@@ -25,8 +26,16 @@ Here we can use 4 types of vectorizers:
 To make prediction on a new review `Its the worst app ever I save my design lts not save`,  run:
 ```buildoutcfg
 python predict.py --text 'Its the worst app ever I save my design lts not save' --model_name binary_count_vector
+
+python predict.py --text 'Unable to save my work. Nothing works.' --model_name nonbinary_count_vector
+
+python predict.py --text 'Its the worst app ever I save my design but it is not saved' --model_name nonbinary_count_vector
+
+python predict.py --text "Overall it's really an amazing app. I've been using this for the past 5 years however I only have one issue though and I wanted this to get address since I think this issue had lasted for how many years? The texts were blurred and when you zoom it out it's pixelated. I thought this issue only occurs on mobile apps however it was also present on the website. Please fix this. I still remember the time when I can export high definition texts and I love that experience. Thank you!" --model_name ngram_count_vector
+
+
 ```
-Here `binary_count_vect` is the file name used to save the model and the vectorizer during the training phase
+Here `binary_count_vector` is the file name used to save the model and the vectorizer during the training phase
 
 ### Note on NLTK Package:
 For installing NLTK, use the command `pip install nltk` <br />

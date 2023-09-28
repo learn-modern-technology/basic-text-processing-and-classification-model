@@ -57,7 +57,8 @@ def main(input_args):
         # Pre-process the text data
         tokenized_df.loc[:, 'CleanedReview'] = process_text(tokenized_df[config.text_column], config.stem)
         # Create dependent variable
-        y = data_df[config.label_column]
+        tokenized_df['Sentiment'] = data_df[config.label_column].apply(lambda x: 1 if x == 'Positive' else 0)
+        y = tokenized_df[config.label_column]
         # Vectorize the data and split data into train and test
         X_train, X_test, y_train, y_test, vectorizer = custom_vectorizer(tokenized_df['CleanedReview'],
                                                                          y,

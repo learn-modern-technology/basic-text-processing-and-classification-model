@@ -1,5 +1,5 @@
-rs = 42
-stem = "w"
+rs = 122
+stem = "l"
 min_df = 5
 ng_low = 1
 ng_high = 3

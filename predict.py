@@ -22,21 +22,23 @@ def main(input_args):
         # Tokenize the input text
         test_clean_review = pd.DataFrame(columns=['CleanedReview'])
         test_clean_review['CleanedReview'] = [process_text(text_reviews_df, 'w')]
-
         # Create vectorizer path
         vector_file = os.path.join(config.output_path, f"{input_args.model_name}.pkl")
         # Load the vectorizer
         p_vectorizer = load_file(vector_file)
         # Vectorize the tokens
         X_test = p_vectorizer.transform(test_clean_review)
-        X_a = X_test.toarray()
-        print(X_a.sum())
-        print(loaded_model)
         # Make predictions
-        predicted_probability = round(loaded_model.predict_proba(X_test)[0, 1]*100, 2)
-        # predicted_probability = loaded_model.predict_proba(X_test)
-        print(f"Text: {input_args.text}")
+        predicted_probability = loaded_model.predict_proba(X_test)[0, 1]*100
+        prediction = loaded_model.predict(X_test)
+        print(prediction)
         print(f"Probability of Positive Class: {predicted_probability}")
+        if prediction == 1:
+            print('Positive Sentiment predicted')
+        elif prediction == 0:
+            print('Negative Setiment is predicted')
+        else:
+            print('Something fishy!! Please check')
     except Exception as e:
         print('Exception in predictor.main() ', e)
     else:
@@ -46,8 +48,6 @@ def main(input_args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--text", type=str, help="Test review")
-    parser.add_argument("--vectorizer", type=str, default="binary_bag_of_words",
-                        help="'nonbinary_bag_of_words', 'binary_bag_of_words', 'ngram', 'term_frequency_inverse_document_frequency'")
     parser.add_argument("--model_name", type=str, default="binary_count_vector",
                         help="Input file name")
     args = parser.parse_args()

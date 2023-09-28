@@ -40,7 +40,7 @@ def custom_vectorizer(i_token_list, y, vector_output_name, i_vector='binary_bag_
                             "'term_frequency_inverse_document_frequency'")
 
         # Fit the vectorizer
-        # p_vectorizer.fit(i_token_list)
+        p_vectorizer.fit(i_token_list)
 
         # Fit the vectorizer and tranform the data and assign to X
         X = p_vectorizer.fit_transform(i_token_list)
